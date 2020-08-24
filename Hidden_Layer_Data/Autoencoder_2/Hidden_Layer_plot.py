@@ -2,8 +2,9 @@ import matplotlib.pyplot as pl
 import csv
 import numpy as np
 from sklearn.neighbors import KernelDensity
+#[50,100,150,200,250,350,400,540,499]
 
-for j in [50,100,150,200,250,350,400,540,499]:
+for j in [150]:
     files = "hidden_layer" + str(j) + ".csv"
     print(j)
     x = []

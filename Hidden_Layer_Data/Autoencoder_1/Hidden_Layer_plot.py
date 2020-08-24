@@ -40,9 +40,8 @@ for j in [150]:
 
 
 #x,y,z,a,b
-    for k,i in enumerate([b]):
+    for k,i in enumerate([x,y,z,a,b]):
         pl.close()
-        k = 4
         print(k)
         i = np.asarray(i)
         i = i.reshape((len(i), 1))

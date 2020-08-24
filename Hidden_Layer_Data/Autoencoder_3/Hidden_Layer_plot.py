@@ -3,7 +3,7 @@ import csv
 import numpy as np
 from sklearn.neighbors import KernelDensity
 
-for j in [150]:
+for j in [50]:
     files = "hidden_layer" + str(j) + ".csv"
     print(j)
     x = []
@@ -40,14 +40,8 @@ for j in [150]:
 
 
 
-    for k,i in enumerate([z,a,b]):
+    for k,i in enumerate([x,y,z,a,b]):
         pl.close()
-        if i == z:
-            k = 2
-        elif i == a:
-            k = 3
-        else:
-            k  =4
         print(k)
         i = np.asarray(i)
         i = i.reshape((len(i), 1))

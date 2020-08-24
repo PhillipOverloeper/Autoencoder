@@ -20,12 +20,11 @@ def smooth_plot(episodes,iterations):
                 rw = np.array([row],dtype="f")
                 values = np.append(values,rw)
 
-        time = np.arange(0,iterations,0.05)
-        print(values.shape)
-        print(time.shape)
+        
+        print(values[0:10])
 
 
-
+		"""
         pl.title("Velocity profile for endeffector")
         pl.xlabel("Time [s]")
         pl.ylabel("Velocity [radians/s]")
@@ -34,3 +33,4 @@ def smooth_plot(episodes,iterations):
         name = str(episodes) + '_' + '.png'
         pl.savefig('smooth_plots/' + name)
         pl.close()
+		"""

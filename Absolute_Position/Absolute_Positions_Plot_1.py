@@ -3,12 +3,12 @@ from mpl_toolkits.mplot3d import Axes3D
 import csv
 import numpy as np
 
-iterate = np.arange(2000,50001,2000)
+iterate = np.arange(2000,20001,2000)
 
 for joint in range(0,7):
     pl.close()
-    #files = "all_plots.csv"
-    files = "AE_joint_positions_1.csv"
+    files = "all_plots.csv"
+    #files = "AE_joint_positions_1.csv"
     x = []
     y = []
     z = []
@@ -54,8 +54,8 @@ for joint in range(0,7):
         print(len(a))
         ax.scatter(a,b,c,marker='o',s=5)
         name = str(int(i/100)) + '_' + str(joint+1) + '.png'
-        pl.show()
-        pl.savefig('absolute_position_autoencoder_1/' + name)
+        #pl.show()
+        pl.savefig('absolute_position_pca_2/' + name)
         pl.close()
         
         
