@@ -9,7 +9,7 @@ def smooth_plot(episodes,iterations):
         pl.close()
         values = 0
         values_ = np.array([])
-        files = "text.csv"
+        files = "text2.csv"
 		
 
         with open(files) as csvDataFile:
@@ -30,7 +30,7 @@ def smooth_plot(episodes,iterations):
                 values = np.append(values,rw[0][i])
 				
 		
-        for j in [50,100,150,200]:
+        for j in [25,50,75,100,125,150,175,200]:
 		
             start = values[0:j*100]
             print(i,j)
@@ -51,7 +51,7 @@ def smooth_plot(episodes,iterations):
             pl.plot(starter[:], probabilites)
             #pl.show()
             name = str(i) + "_" + str(j) + ".png"
-            pl.savefig("Density_Estimation_PCA_1/" + name)
+            pl.savefig("Density_Estimation_PCA_2/" + name)
             pl.close()   
 
 

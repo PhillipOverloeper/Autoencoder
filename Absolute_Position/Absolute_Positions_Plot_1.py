@@ -55,7 +55,7 @@ for joint in range(0,7):
         ax.scatter(a,b,c,marker='o',s=5)
         name = str(int(i/100)) + '_' + str(joint+1) + '.png'
         #pl.show()
-        pl.savefig('absolute_position_pca_2/' + name)
+        pl.savefig('absolute_position_pca_3/' + name)
         pl.close()
         
         
