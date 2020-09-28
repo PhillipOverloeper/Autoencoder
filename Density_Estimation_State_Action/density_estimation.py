@@ -1,7 +1,13 @@
 import matplotlib.pyplot as pl
+import matplotlib
 import csv
 import numpy as np
 from sklearn.neighbors import KernelDensity
+
+
+matplotlib.rc('xtick', labelsize=17) 
+matplotlib.rc('ytick', labelsize=17) 
+pl.rcParams.update({'font.size': 30})
 
 def smooth_plot(episodes,iterations):
 
@@ -9,7 +15,7 @@ def smooth_plot(episodes,iterations):
         pl.close()
         values = 0
         values_ = np.array([])
-        files = "text2.csv"
+        files = "text.csv"
 		
 
         with open(files) as csvDataFile:
@@ -47,11 +53,11 @@ def smooth_plot(episodes,iterations):
             pl.hist(start, bins=100, density=True)
             pl.xlabel("Position in Radian")
             pl.ylabel("Density")
-            pl.title("Density Estimation of " + str(j) + ". episode") 
+            #pl.title("Density Estimation of " + str(j) + ". episode") 
             pl.plot(starter[:], probabilites)
             #pl.show()
-            name = str(i) + "_" + str(j) + ".png"
-            pl.savefig("Density_Estimation_PCA_2/" + name)
+            name = str(i) + "_" + str(j) + ".svg"
+            pl.savefig("Density_Estimation_PCA_4/" + name)
             pl.close()   
 
 
