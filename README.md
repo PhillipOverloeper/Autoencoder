@@ -10,3 +10,8 @@ Density_Estimation_State_Action: Beinhaltes sämtliche Plots der Density Estimat
 
 Latex: Beinhaltet sämtliche Texte zur Arbeit, wie Abstract, Pseudocode oder das Template.
 
+
+
+TODO: Mean and Variance Loss
+      Andere Plots berechnen
+
