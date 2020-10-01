@@ -15,9 +15,9 @@ import csv
 import os
 import cma
 
-from Positions_plot import show_position
-from Absolute_Positions_Plot import show_scatter
-from Smooth_Trajectory_Plot import smooth_plot
+#from Positions_plot import show_position
+#from Absolute_Positions_Plot import show_scatter
+#from Smooth_Trajectory_Plot import smooth_plot
 
 class autoencoder(nn.Module):
     """
@@ -304,7 +304,7 @@ if True:
     # Constants
     CONSTRAINT = 10                                             # In degrees per second
     NUM_EPOCHS = 20
-    EPISODES = 500
+    EPISODES = 200
     ITERATIONS = 100
     LIMITS_POS = np.array([170,120,170,120,170,120,175])        # In degree per second
     LIMITS_VEL = np.array([98,98,100,130,140,180,180])          # In degree per second
@@ -473,10 +473,10 @@ if True:
         sim.simxSynchronous(clientID,False)
         sim.simxStopSimulation(clientID,sim.simx_opmode_blocking)
 
-        show_position(episodes,ITERATIONS)
-        show_scatter(episodes,ITERATIONS)
-        smooth_plot(episodes,ITERATIONS)
-        print(file6)
+        #show_position(episodes,ITERATIONS)
+        #show_scatter(episodes,ITERATIONS)
+        #smooth_plot(episodes,ITERATIONS)
+        
         # Train the model
         dataloader = read_in_values(file2,BATCH_SIZE)
         train_model(model,dataloader,NUM_EPOCHS,optimizer,criterion,file4,episodes+1,file6,device)
