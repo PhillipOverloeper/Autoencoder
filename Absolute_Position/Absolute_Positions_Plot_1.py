@@ -80,7 +80,7 @@ for joint in range(0,7):
                label.set_visible(False)
 				
         #pl.show()
-        pl.savefig('absolute_position_pca_5/' + name)
+        pl.savefig('absolute_position_autoencoder_5/' + name)
         pl.close()
         
         

@@ -116,9 +116,9 @@ def train_model(model,dataloader,num_epochs,optimizer,criterion,files,episode,fi
             #vector = Variable(vector).type(FloatTensor)
             # Send data through the model
             model.zero_grad()
-            output,y = model(vector.cuda(),file,1)
+            output,y = model(vector,file,1)
             # calculate loss)
-            loss = criterion(output,vector.cuda())
+            loss = criterion(output,vector)
             loss.backward()
             # Update model
             optimizer.step()
@@ -208,7 +208,7 @@ def objective_function(solutions,model,state,kde,limits_pos,height):
     solutions = torch.Tensor(vector)
     with torch.no_grad():      
         model.eval()
-        x,y = model(solutions.cuda(),None,0)
+        x,y = model(solutions,None,0)
         y = y.cpu()
     vector = y.detach().numpy()
     vector = np.asarray(vector)
@@ -322,8 +322,8 @@ if True:
     joint_handles = get_joint_handles(clientID)
     # Set up variables for autoencoder
     FloatTensor = torch.FloatTensor
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    model = autoencoder().cuda()
+    device = torch.device("cpu")
+    model = autoencoder()
     optimizer = torch.optim.Adam(params=model.parameters(),lr=0.001)
     criterion = nn.MSELoss()
     zero_episode = 0
@@ -440,7 +440,7 @@ if True:
                 model.eval()
 
                 print(threshold)
-                x,y = model(torch.Tensor(values).cuda(),None,0)
+                x,y = model(torch.Tensor(values),None,0)
                 print(y.shape)
                 y = y.cpu()
                 kde.fit(y)
