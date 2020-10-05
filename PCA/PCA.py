@@ -257,6 +257,9 @@ if True:
         with open('episode.csv',mode='a') as file:
             writer = csv.writer(file,delimiter=",")
             string = str(episodes)
+            writer.writerow(string)with open('episode.csv',mode='a') as file:
+            writer = csv.writer(file,delimiter=",")
+            string = str(episodes)
             writer.writerow(string)
         
         
