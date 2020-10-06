@@ -10,10 +10,6 @@ matplotlib.rc('xtick', labelsize=17)
 matplotlib.rc('ytick', labelsize=17) 
 pl.rcParams.update({'font.size': 15})
 
-pl.locator_params(axis='y', nbins=3)
-pl.locator_params(axis='x', nbins=3)
-pl.locator_params(axis='z', nbins=3)
-
 
 iterate = np.arange(2000,20001,2000)
 

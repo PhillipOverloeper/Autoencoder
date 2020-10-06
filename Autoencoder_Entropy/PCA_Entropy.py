@@ -27,8 +27,8 @@ def get_real_values(file):
 if True:
 
     file_1 = 'state_action_pca_2.csv'
-    file_2 = 'state_action_autoencoder_2.csv' 
-    file_3 = 'state_action_baseline_2.csv'
+    file_2 = 'state_action_autoencoder_3.csv' 
+    file_3 = 'state_action_baseline_3.csv'
 
     values_1 = get_real_values(file_1)
     values_2 = get_real_values(file_2)
@@ -86,6 +86,10 @@ if True:
             
         # Get min and max value
         min_value_1 = min([min(a_1),min(a_2),min(a_3)])
+        print(min(a_1))
+        print(min(a_2))
+        print(min(a_3))
+        print(min_value_1)
         min_value_2 = min([min(b_1),min(b_2),min(b_3)])
         min_value_3 = min([min(c_1),min(c_2),min(c_3)])
         min_value_4 = min([min(d_1),min(d_2),min(d_3)])
@@ -149,34 +153,35 @@ if True:
                    
             
                 disc_values = np.arange(min_value,max_value,(max_value - min_value)/1000)
-                numb_values = np.zeros(len(disc_values))
+                numb_values = np.zeros(len(disc_values))            
                 
                 for idx,i in enumerate(dim):
                     for idj,j in enumerate(disc_values):
                         if i <= j:
                             numb_values[idj] += 1
                             break
+              
+                
+                probi = np.array([])
 
                 total_entropy = 0
                 tot_prob = 0
-                print(sum(numb_values),len(numb_values))
 
-                for prob in numb_values:
-                    if prob == 0:   
-                        continue
+                for zahl,prob in enumerate(numb_values):
                     p = prob/(episode*100)
+                    probi = np.append(probi,p)
+                    if p == 0:   
+                        continue
                     tot_prob += p
-                    total_entropy += -p * math.log(2, p)
+                    total_entropy += -p * math.log(p, 2)
                     
                 print('This is the entropy ' + str(total_entropy) + ' of the ' + str(n_dim+1))
-                print(tot_prob)
-                
+                print(np.mean(probi,axis=0,dtype=np.float64))
 
                 
-                
-                #with open('pca_entropy_pca2.csv',mode='a') as file:
-                #    writer = csv.writer(file,delimiter=",")
-                #    writer.writerow(str(total_entropy))
+                with open ('pca_entropy.csv',mode="a") as file:
+                    writer = csv.writer(file,delimiter=',',quotechar='|',quoting=csv.QUOTE_NONE)
+                    writer.writerow([str(total_entropy),str(0.0)])
 
 	
 	

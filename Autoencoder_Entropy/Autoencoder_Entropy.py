@@ -45,7 +45,7 @@ def get_real_values(file):
 		
 if True:
 	
-    file_1 = 'state_action_autoencoder_2.csv' 
+    file_1 = 'state_action_autoencoder_3.csv' 
     file_2 = 'state_action_pca_2.csv'
     file_3 = 'state_action_baseline_2.csv'
 
@@ -177,21 +177,26 @@ if True:
                             numb_values[idj] += 1
                             break
 
+
+                probi = np.array([])
                 total_entropy = 0
                 tot_prob = 0
-                print(sum(numb_values),len(numb_values))
+
 
                 for prob in numb_values:
-                    if prob == 0:   
-                        continue
                     p = prob/(episode*100)
+                    probi = np.append(probi,p)
+                    if p == 0:   
+                        continue
                     tot_prob += p
-                    total_entropy += -p * math.log(2, p)
+                    total_entropy += -p * math.log(p, 2)
                     
                 print('This is the entropy ' + str(total_entropy) + ' of the ' + str(n_dim+1))
-                print(tot_prob)
+                print(np.mean(probi,axis=0,dtype=np.float64))
                 
-                
+                with open ('autoencoder_entropy.csv',mode="a") as file:
+                    writer = csv.writer(file,delimiter=',',quotechar='|',quoting=csv.QUOTE_NONE)
+                    writer.writerow([str(total_entropy),str(0.0)])
             
             
             

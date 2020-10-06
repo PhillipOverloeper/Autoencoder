@@ -4,12 +4,12 @@ import numpy as np
 from sklearn.neighbors import KernelDensity
 import matplotlib
 
-matplotlib.rc('xtick', labelsize=17) 
-matplotlib.rc('ytick', labelsize=17) 
+matplotlib.rc('xtick', labelsize=30) 
+matplotlib.rc('ytick', labelsize=30) 
 pl.rcParams.update({'font.size': 30})
 
 #,200,250,350,400,540,500]:
-for j in [50,100,150]:
+for j in [0,50,100,150]:
     files = "hidden_layer" + str(j) + ".csv"
     print(j)
     x = []
@@ -46,7 +46,7 @@ for j in [50,100,150]:
 
 
 #x,y,z,a,b
-    for k,i in enumerate([x,y,z,a,b]):
+    for k,i in enumerate([x,a]):
         pl.close()
         print(k)
         i = np.asarray(i)
