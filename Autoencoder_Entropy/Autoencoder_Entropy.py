@@ -6,7 +6,11 @@ import csv
 import torch
 import math
 import sys
+import matplotlib
 
+matplotlib.rc('xtick', labelsize=30) 
+matplotlib.rc('ytick', labelsize=30) 
+pl.rcParams.update({'font.size': 30})
 
 
 class autoencoder(nn.Module):
@@ -47,13 +51,14 @@ if True:
 	
     file_1 = 'state_action_autoencoder_3.csv' 
     file_2 = 'state_action_pca_2.csv'
-    file_3 = 'state_action_baseline_2.csv'
+    file_3 = 'state_action_baseline_3.csv'
 
     values_1 = get_real_values(file_1)
     values_2 = get_real_values(file_2)
     values_3 = get_real_values(file_3)
     model = torch.load('model.pt')
 	
+    
 	
     for episode in [50,100,150,200]:
 	
@@ -77,12 +82,32 @@ if True:
         c_3 = np.array([[]])
         d_3 = np.array([[]])
         e_3 = np.array([[]])
+        
         with torch.no_grad(): 
             model.eval()
             x, vector_1 = model(torch.Tensor(entr_arr_1))
             x, vector_2 = model(torch.Tensor(entr_arr_2))
             x, vector_3 = model(torch.Tensor(entr_arr_3))
         # Fill the different dimensions
+        
+        for i in range(3):
+        
+            if i == 0:
+                dimension = vector_1
+            elif i == 1:
+                dimension = vector_2
+            else:
+                dimension = vector_3
+        
+            #dimension = np.asarray(dimension)
+            #dimension = dimension.reshape((len(dimension), 1))
+            kde = KernelDensity(kernel='gaussian', bandwidth=0.5).fit(dimension)
+            probabilities = kde.score_samples(dimension)
+            print("Mean of the unexpoentiated: ", np.mean(probabilities))     
+            probabilities = np.exp(probabilities)
+            print("Mean of the unexpoentiated: ", np.mean(probabilities))
+        
+
         for i in range(len(vector_1)):
 			
             # Dimensions for PCA
@@ -125,8 +150,9 @@ if True:
                 d = d_1
                 e = e_1
                 
+                name = 'Autoencoder'
                 print('')
-                print('PCA of ' + str(episode))
+                print('Autoencoder of ' + str(episode))
                 print('')
             elif iteration == 1:
                 a = a_2
@@ -135,8 +161,9 @@ if True:
                 d = d_2
                 e = e_2
      
+                name = 'PCA'
                 print('')     
-                print('Autoencoder of ' + str(episode))
+                print('PCA of ' + str(episode))
                 print('')         
             else:
                 a = a_3
@@ -145,6 +172,7 @@ if True:
                 d = d_3
                 e = e_3  
 
+                name = 'Baseline'
                 print('')
                 print('Baseline of ' + str(episode))
                 print('')                
@@ -166,7 +194,9 @@ if True:
                 else:
                     min_value = min_value_5
                     max_value = max_value_5
-                   
+                    
+                  
+                
             
                 disc_values = np.arange(min_value,max_value,(max_value - min_value)/1000)
                 numb_values = np.zeros(len(disc_values))
@@ -176,7 +206,14 @@ if True:
                         if i <= j:
                             numb_values[idj] += 1
                             break
-
+                            
+                #if episode == 200:  
+                #    pl.xlabel('Compressed Value')
+                #    pl.ylabel('Density')
+                #    pl.hist(dim,bins=100,density=True)
+                #    namen = name + '_' + str(n_dim) + ".svg"
+                #    pl.savefig("Autoencoder/" + namen)
+                #    pl.close()
 
                 probi = np.array([])
                 total_entropy = 0
@@ -192,90 +229,14 @@ if True:
                     total_entropy += -p * math.log(p, 2)
                     
                 print('This is the entropy ' + str(total_entropy) + ' of the ' + str(n_dim+1))
-                print(np.mean(probi,axis=0,dtype=np.float64))
+                print('')
                 
-                with open ('autoencoder_entropy.csv',mode="a") as file:
-                    writer = csv.writer(file,delimiter=',',quotechar='|',quoting=csv.QUOTE_NONE)
-                    writer.writerow([str(total_entropy),str(0.0)])
+#               with open ('autoencoder_entropy.csv',mode="a") as file:
+#                   writer = csv.writer(file,delimiter=',',quotechar='|',quoting=csv.QUOTE_NONE)                    
+#                   writer.writerow([str(total_entropy),str(0.0)])
             
             
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-#        kde.fit(y)
-#		
- #       probabilites = kde.score_samples(y)
-  #      probabilites = np.exp(probabilites)
-	#	
-     #   print(probabilites)
-	#
-     #   total_entropy = 0
-#
- #       for k in probabilites:
-  #          total_entropy += -k * math.log(2, k)
-	#			
-     #   print(total_entropy)
-		
-#		for j in range(len(y)):
-#			
-#			a = np.append(a,y[j][0])
-#			b = np.append(b,y[j][1])
-#			c = np.append(c,y[j][2])
-#			d = np.append(d,y[j][3])
-#			e = np.append(e,y[j][4])
-#			
-#
-#		for i in [a,b,c,d,e]:
-#
-#			i = np.asarray(i)
-#			i = i.reshape((len(i), 1))
-#			kde = KernelDensity(kernel='gaussian', bandwidth=0.01).fit(i)
-#			values = np.asarray([(2.5*value)/len(i) for value in range(-len(i),len(i))])
-#			values = values.reshape((len(values), 1))
-#			probabilites = kde.score_samples(values)
-#			probabilites = np.exp(probabilites)
-#
-#			pl.hist(i, bins=1000, density=True)
-#			pl.xlabel("Compressed value")
-#			pl.ylabel("Density")
-#			pl.plot(values[:], probabilites)
-#			#pl.show()
-#			
-#			total_entropy = 0
-#
-#			for k in probabilites:
-#				if k == 0.0:
-#					continue
-#				total_entropy += -k * math.log(2, k)
-#				
-#			print(total_entropy)
-#			#name = "hidden_layer"+str(j) + "_" + str(k) + ".svg"
-#			#pl.savefig("Density Estimation/" + name)
-#			#pl.close()
+ 
 		
 			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

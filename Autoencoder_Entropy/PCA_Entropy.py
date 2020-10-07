@@ -6,6 +6,12 @@ import math
 import sys
 from sklearn.decomposition import PCA
 
+import matplotlib
+
+matplotlib.rc('xtick', labelsize=30) 
+matplotlib.rc('ytick', labelsize=30) 
+pl.rcParams.update({'font.size': 30})
+
 def get_real_values(file):
 
     values = np.array([[]])
@@ -62,6 +68,27 @@ if True:
         vector_1 = pca.transform(entr_arr_1)
         vector_2 = pca.transform(entr_arr_2)
         vector_3 = pca.transform(entr_arr_3)
+        
+        for i in range(3):
+        
+            if i == 0:
+                dimension = vector_1
+            elif i == 1:
+                dimension = vector_2
+            else:
+                dimension = vector_3
+        
+            #dimension = np.asarray(dimension)
+            #dimension = dimension.reshape((len(dimension), 1))
+            kde = KernelDensity(kernel='gaussian', bandwidth=0.5).fit(dimension)
+            #values = np.asarray([(2.5*value)/len(dimension) for value in range(-len(dimension),len(dimension))])
+            #values = values.reshape((len(values), 1))
+            probabilities = kde.score_samples(dimension)
+            print("Mean of the unexpoentiated: ", np.mean(probabilities))     
+            probabilities = np.exp(probabilities)
+            print("Mean of the unexpoentiated: ", np.mean(probabilities))
+            
+            
         # Fill the different dimensions
         for i in range(len(vector_1)):
 			
@@ -86,10 +113,6 @@ if True:
             
         # Get min and max value
         min_value_1 = min([min(a_1),min(a_2),min(a_3)])
-        print(min(a_1))
-        print(min(a_2))
-        print(min(a_3))
-        print(min_value_1)
         min_value_2 = min([min(b_1),min(b_2),min(b_3)])
         min_value_3 = min([min(c_1),min(c_2),min(c_3)])
         min_value_4 = min([min(d_1),min(d_2),min(d_3)])
@@ -108,7 +131,7 @@ if True:
                 c = c_1
                 d = d_1
                 e = e_1
-                
+                name = 'PCA'
                 print('')
                 print('PCA of ' + str(episode))
                 print('')
@@ -118,7 +141,7 @@ if True:
                 c = c_2
                 d = d_2
                 e = e_2
-     
+                name = 'Autoencoder'
                 print('')     
                 print('Autoencoder of ' + str(episode))
                 print('')         
@@ -128,7 +151,7 @@ if True:
                 c = c_3
                 d = d_3
                 e = e_3  
-
+                name = 'Baseline'
                 print('')
                 print('Baseline of ' + str(episode))
                 print('')                
@@ -160,7 +183,14 @@ if True:
                         if i <= j:
                             numb_values[idj] += 1
                             break
-              
+                            
+                #if episode == 200:  
+                #    pl.xlabel('Compressed Value')
+                #    pl.ylabel('Density')
+                #    pl.hist(dim,bins=100,density=True)
+                #    namen = name + '_' + str(n_dim) + ".svg"
+                #    pl.savefig("PCA/" + namen)
+                #    pl.close()
                 
                 probi = np.array([])
 
@@ -176,12 +206,11 @@ if True:
                     total_entropy += -p * math.log(p, 2)
                     
                 print('This is the entropy ' + str(total_entropy) + ' of the ' + str(n_dim+1))
-                print(np.mean(probi,axis=0,dtype=np.float64))
 
                 
-                with open ('pca_entropy.csv',mode="a") as file:
-                    writer = csv.writer(file,delimiter=',',quotechar='|',quoting=csv.QUOTE_NONE)
-                    writer.writerow([str(total_entropy),str(0.0)])
+#                with open ('pca_entropy.csv',mode="a") as file:
+#                    writer = csv.writer(file,delimiter=',',quotechar='|',quoting=csv.QUOTE_NONE)
+#                    writer.writerow([str(total_entropy),str(0.0)])
 
 	
 	
