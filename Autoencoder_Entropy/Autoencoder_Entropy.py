@@ -60,7 +60,7 @@ if True:
 	
     
 	
-    for episode in [50,100,150,200]:
+    for episode in [50]:
 	
         # Get date until a certain episode
         entr_arr_1 = values_1[0:(episode*100)]
@@ -101,11 +101,11 @@ if True:
         
             #dimension = np.asarray(dimension)
             #dimension = dimension.reshape((len(dimension), 1))
-            kde = KernelDensity(kernel='gaussian', bandwidth=0.5).fit(dimension)
-            probabilities = kde.score_samples(dimension)
-            print("Mean of the unexpoentiated: ", np.mean(probabilities))     
-            probabilities = np.exp(probabilities)
-            print("Mean of the unexpoentiated: ", np.mean(probabilities))
+            #kde = KernelDensity(kernel='gaussian', bandwidth=0.5).fit(dimension)
+            #probabilities = kde.score_samples(dimension)
+            #print("Mean of the unexpoentiated: ", np.mean(probabilities))     
+            #probabilities = np.exp(probabilities)
+            #print("Mean of the unexpoentiated: ", np.mean(probabilities))
         
 
         for i in range(len(vector_1)):
@@ -206,30 +206,33 @@ if True:
                         if i <= j:
                             numb_values[idj] += 1
                             break
+                       
                             
-                #if episode == 200:  
-                #    pl.xlabel('Compressed Value')
-                #    pl.ylabel('Density')
-                #    pl.hist(dim,bins=100,density=True)
-                #    namen = name + '_' + str(n_dim) + ".svg"
+                            
+                if episode == 50:  
+                    pl.xlabel('Compressed Value')
+                    pl.ylabel('Density')
+                    pl.hist(dim,bins=100,density=True)
+                    pl.plot(dim,np.full(dim.shape[0], -0.01), '+k')
+                    namen = name + '_' + str(n_dim) + ".svg"
                 #    pl.savefig("Autoencoder/" + namen)
-                #    pl.close()
+                    pl.show()
 
                 probi = np.array([])
                 total_entropy = 0
                 tot_prob = 0
 
 
-                for prob in numb_values:
-                    p = prob/(episode*100)
-                    probi = np.append(probi,p)
-                    if p == 0:   
-                        continue
-                    tot_prob += p
-                    total_entropy += -p * math.log(p, 2)
-                    
-                print('This is the entropy ' + str(total_entropy) + ' of the ' + str(n_dim+1))
-                print('')
+#                for prob in numb_values:
+#                    p = prob/(episode*100)
+#                    probi = np.append(probi,p)
+#                    if p == 0:   
+#                        continue
+#                    tot_prob += p
+#                    total_entropy += -p * math.log(p, 2)
+#                    
+#                print('This is the entropy ' + str(total_entropy) + ' of the ' + str(n_dim+1))
+#                print('')
                 
 #               with open ('autoencoder_entropy.csv',mode="a") as file:
 #                   writer = csv.writer(file,delimiter=',',quotechar='|',quoting=csv.QUOTE_NONE)                    
