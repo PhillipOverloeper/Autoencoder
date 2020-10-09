@@ -213,8 +213,10 @@ if True:
                     pl.xlabel('Compressed Value')
                     pl.ylabel('Density')
                     pl.hist(dim,bins=100,density=True)
-                    pl.plot(dim,np.full(dim.shape[0], -0.01), '+k')
+                    pl.plot(dim, -0.05 - 0.01 * np.random.random(dim.shape[0]), '+k')
                     namen = name + '_' + str(n_dim) + ".svg"
+                    axes = pl.gca()
+                    axes.set_ylim(-0.10,2.5)
                 #    pl.savefig("Autoencoder/" + namen)
                     pl.show()
 

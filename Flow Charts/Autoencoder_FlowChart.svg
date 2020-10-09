@@ -13,7 +13,7 @@
    width="369.11404"
    height="890.21185"
    viewBox="0 0 369.11404 890.21185"
-   sodipodi:docname="Autoencoder.svg"
+   sodipodi:docname="Autoencoder_FlowChart.svg"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"><metadata
      id="metadata16"><rdf:RDF><cc:Work
          rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
@@ -33,8 +33,8 @@
      showgrid="false"
      inkscape:zoom="0.9548289"
      inkscape:cx="184.55702"
-     inkscape:cy="486.99825"
-     inkscape:window-x="1912"
+     inkscape:cy="528.89057"
+     inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:current-layer="g20"
@@ -364,7 +364,7 @@
            x="120.9436"
            y="95.760971"
            style="font-size:10px;text-align:center;text-anchor:middle;stroke-width:0.75"
-           id="tspan146">evironment</tspan></text><text
+           id="tspan146">environment</tspan></text><text
          xml:space="preserve"
          style="font-style:normal;font-weight:normal;font-size:10px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.75"
          x="90.330322"
