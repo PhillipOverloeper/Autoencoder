@@ -54,18 +54,18 @@ if True:
     file_3 = 'state_action_baseline_3.csv'
 
     values_1 = get_real_values(file_1)
-    values_2 = get_real_values(file_2)
-    values_3 = get_real_values(file_3)
+    #values_2 = get_real_values(file_2)
+    #values_3 = get_real_values(file_3)
     model = torch.load('model.pt')
 	
     
 	
-    for episode in [50]:
+    for episode in [50,100,150,200]:
 	
         # Get date until a certain episode
         entr_arr_1 = values_1[0:(episode*100)]
-        entr_arr_2 = values_2[0:(episode*100)]
-        entr_arr_3 = values_3[0:(episode*100)]
+        #entr_arr_2 = values_2[0:(episode*100)]
+        #entr_arr_3 = values_3[0:(episode*100)]
         # Initialize the vectors for the dimensions
         a_1 = np.array([[]])
         b_1 = np.array([[]])
@@ -86,9 +86,16 @@ if True:
         with torch.no_grad(): 
             model.eval()
             x, vector_1 = model(torch.Tensor(entr_arr_1))
-            x, vector_2 = model(torch.Tensor(entr_arr_2))
-            x, vector_3 = model(torch.Tensor(entr_arr_3))
+            #x, vector_2 = model(torch.Tensor(entr_arr_2))
+            #x, vector_3 = model(torch.Tensor(en
+            
         # Fill the different dimensions
+        
+        vector_1_projected = x.detach().numpy()
+        vector_1_projected = np.asarray(vector_1_projected)
+        loss = ((entr_arr_1 - vector_1_projected)**2).mean()
+        print('Loss of ' + str(episode) + '. ' + str(loss))
+        continue
         
         for i in range(3):
         

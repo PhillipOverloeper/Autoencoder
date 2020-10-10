@@ -32,13 +32,13 @@ def get_real_values(file):
 	
 if True:
 
-    file_1 = 'state_action_pca_2.csv'
-    file_2 = 'state_action_autoencoder_3.csv' 
-    file_3 = 'state_action_baseline_3.csv'
+    file_1 = 'state_action_pca_1.csv'
+    file_2 = 'state_action_autoencoder_2.csv' 
+    file_3 = 'state_action_baseline_2.csv'
 
     values_1 = get_real_values(file_1)
-    values_2 = get_real_values(file_2)
-    values_3 = get_real_values(file_3)
+    #values_2 = get_real_values(file_2)
+    #values_3 = get_real_values(file_3)
     pca = PCA(whiten=True,n_components=5)
     pca.fit(values_1)
     
@@ -46,8 +46,8 @@ if True:
         
         # Get date until a certain episode
         entr_arr_1 = values_1[0:(episode*100)]
-        entr_arr_2 = values_2[0:(episode*100)]
-        entr_arr_3 = values_3[0:(episode*100)]
+        #entr_arr_2 = values_2[0:(episode*100)]
+        #entr_arr_3 = values_3[0:(episode*100)]
         # Initialize the vectors for the dimensions
         a_1 = np.array([[]])
         b_1 = np.array([[]])
@@ -66,6 +66,11 @@ if True:
         e_3 = np.array([[]])
         # Perform dimensionality reduction 
         vector_1 = pca.transform(entr_arr_1)
+        vector_1_projected = pca.inverse_transform(vector_1)
+        loss = ((entr_arr_1 - vector_1_projected)**2).mean()
+        print('Loss of ' + str(episode) + '. ' + str(loss))
+        continue
+        
         vector_2 = pca.transform(entr_arr_2)
         vector_3 = pca.transform(entr_arr_3)
         
