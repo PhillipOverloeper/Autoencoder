@@ -330,6 +330,7 @@ if True:
     counter = 0
     threshold = 0
 
+    # Check which episode
     if os.path.isfile('episode.csv'):
         with open('episode.csv') as csvDataFile:
             for row in csvDataFile:
