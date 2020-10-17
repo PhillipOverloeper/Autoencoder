@@ -35,11 +35,13 @@ for i in [1,2,150,200]:
 	pl.fill_between(time,mean-variance,mean+variance)
 	pl.xlabel('Epoch')
 	pl.ylabel('Loss')
+	axes = pl.gca()
+	axes.set_ylim([0,1.4])
 	pl.show()
-	pl.plot(time,range)
-	pl.xlabel('Epoch')
-	pl.ylabel('Loss')
-	pl.show()
+#	pl.plot(time,range)
+#	pl.xlabel('Epoch')
+#	pl.ylabel('Loss')
+#	pl.show()
 	
 
 #pl.title("Loss w.r.t epochs")
